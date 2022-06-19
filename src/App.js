@@ -1,25 +1,39 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState, useEffect } from 'react';
+import Chart from 'chart.js/auto';
+import { BarChart } from './components/BarChart.js';
+import { CashFlow } from './data/CashFlow.js';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [chartData, setChartData] = useState({ datasets: [] });
+
+	useEffect(() => {
+		setChartData({
+			labels: CashFlow.map((label) => label.row),
+			datasets: [
+				{
+					label: 'Price in USD',
+					data: CashFlow.map((section) => section.current),
+					backgroundColor: [
+						'#ffbb11',
+						'#ecf0f1',
+						'#50AF95',
+						'#f3ba2f',
+						'#2a71d0',
+					],
+				},
+			],
+		});
+	}, []);
+
+	return (
+		<div className='App'>
+			<h1>DBIT Analytics</h1>
+			<div>
+				<BarChart chartData={chartData} />
+			</div>
+		</div>
+	);
 }
 
 export default App;
