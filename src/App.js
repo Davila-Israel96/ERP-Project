@@ -1,36 +1,80 @@
-import './App.css';
-import { useState, useEffect } from 'react';
-import Chart from 'chart.js/auto';
-import { BarChart } from './components/BarChart.js';
-import { CashFlow } from './data/CashFlow.js';
+import "./App.css";
+import { useState, useEffect } from "react";
+import { Chart } from "./components/Chart.js";
+import Highcharts from "highcharts";
+import { CashFlow } from "./data/CashFlow.js";
 
 function App() {
-	const [chartData, setChartData] = useState({ datasets: [] });
+	const [chartData, setChartData] = useState({});
+	const data = CashFlow;
+	let series = [];
+	let categories = [];
 
+	for (let item of data) {
+		categories.push(item.row);
+		series.push({
+			name: item.row,
+			y: item.current,
+		});
+	}
 	useEffect(() => {
 		setChartData({
-			labels: CashFlow.map((label) => label.row),
-			datasets: [
+			title: {
+				text: "Chart Title",
+			},
+			subtitle: {
+				text: "Subtitle here",
+			},
+			chart: {
+				type: "bar",
+			},
+			xAxis: {
+				categories: [...categories],
+				title: {
+					text: null,
+				},
+			},
+			yAxis: {
+				min: -300,
+				title: {
+					text: "Value",
+				},
+				labels: {
+					overflow: "justify",
+				},
+			},
+			credits: { enabled: false },
+			plotOptions: {
+				bar: {
+					dataLabels: {
+						enabled: true,
+					},
+				},
+			},
+			legend: {
+				layout: "vertical",
+				align: "right",
+				verticalAlign: "top",
+				x: -40,
+				y: 80,
+				borderWidth: 1,
+				floating: true,
+				backgroundColor:
+					Highcharts.defaultOptions.legend.backgroundColor || "#FFFFFFF",
+			},
+			series: [
 				{
-					label: 'Price in USD',
-					data: CashFlow.map((section) => section.current),
-					backgroundColor: [
-						'#ffbb11',
-						'#ecf0f1',
-						'#50AF95',
-						'#f3ba2f',
-						'#2a71d0',
-					],
+					name: "Value",
+					data: [...series],
 				},
 			],
 		});
 	}, []);
-
 	return (
-		<div className='App'>
+		<div className="App">
 			<h1>DBIT Analytics</h1>
 			<div>
-				<BarChart chartData={chartData} />
+				<Chart chartData={chartData} />
 			</div>
 		</div>
 	);
