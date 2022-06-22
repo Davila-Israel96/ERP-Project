@@ -2,7 +2,12 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import { Chart } from "./components/Chart.js";
 import Highcharts from "highcharts";
+import highcharts3d from "highcharts/highcharts-3d";
+import cylinder from "highcharts/modules/cylinder";
 import { CashFlow } from "./data/CashFlow.js";
+highcharts3d(Highcharts);
+cylinder(Highcharts);
+// when using certain modules, they must be imported and initialized separately
 /**
  *
  * @description: Main page for application, App will act as the foundation
@@ -10,6 +15,7 @@ import { CashFlow } from "./data/CashFlow.js";
  */
 function App() {
 	const [chartData, setChartData] = useState({});
+	const [chartType, setChartType] = useState("bar");
 	const data = CashFlow;
 	let seriesCurrent = [];
 	let seriesPrevious = [];
@@ -36,7 +42,7 @@ function App() {
 				text: "Subtitle here",
 			},
 			chart: {
-				type: "bar",
+				type: chartType,
 			},
 			xAxis: {
 				type: "category",
@@ -48,7 +54,7 @@ function App() {
 				max: 3,
 			},
 			yAxis: {
-				min: -300,
+				min: -1000,
 				title: {
 					text: "Value",
 				},
@@ -61,6 +67,7 @@ function App() {
 				bar: {
 					dataLabels: {
 						enabled: true,
+						format: "${y}",
 					},
 				},
 			},
@@ -78,20 +85,28 @@ function App() {
 			// series is an array of objects set above useEffect
 			series: [
 				{
+					name: "Current",
 					data: [...seriesCurrent],
 				},
 				{
+					name: "Previous",
 					data: [...seriesPrevious],
 				},
 			],
 		});
-	}, [data]);
+	}, [data, chartType]);
 	return (
 		<div className="App">
 			<h1>DBIT Analytics</h1>
 			<div>
 				<Chart chartData={chartData} />
 			</div>
+			<button type="button" onClick={() => setChartType("bar")}>
+				BAR
+			</button>
+			<button type="button" onClick={() => setChartType("column")}>
+				COLUMN
+			</button>
 		</div>
 	);
 }

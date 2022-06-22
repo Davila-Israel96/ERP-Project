@@ -7,7 +7,7 @@ export const CashFlow = [
 		previous: 44846,
 	},
 	{
-		row: "N.I",
+		row: "Net Investment",
 		name: "Net Investment",
 		current: -215,
 		previous: -42,
