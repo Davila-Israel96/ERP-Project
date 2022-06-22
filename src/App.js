@@ -3,18 +3,28 @@ import { useState, useEffect } from "react";
 import { Chart } from "./components/Chart.js";
 import Highcharts from "highcharts";
 import { CashFlow } from "./data/CashFlow.js";
-
+/**
+ *
+ * @description: Main page for application, App will act as the foundation
+ * for each type of chart, as well as the Home page for the application.
+ */
 function App() {
 	const [chartData, setChartData] = useState({});
 	const data = CashFlow;
-	let series = [];
+	let seriesCurrent = [];
+	let seriesPrevious = [];
 	let categories = [];
 
+	// get all objects from array and format them for use in w/ highcharts
 	for (let item of data) {
 		categories.push(item.row);
-		series.push({
+		seriesCurrent.push({
 			name: item.row,
 			y: item.current,
+		});
+		seriesPrevious.push({
+			name: item.row,
+			y: item.previous,
 		});
 	}
 	useEffect(() => {
@@ -29,10 +39,13 @@ function App() {
 				type: "bar",
 			},
 			xAxis: {
+				type: "category",
 				categories: [...categories],
 				title: {
 					text: null,
 				},
+				min: 0,
+				max: 3,
 			},
 			yAxis: {
 				min: -300,
@@ -62,14 +75,17 @@ function App() {
 				backgroundColor:
 					Highcharts.defaultOptions.legend.backgroundColor || "#FFFFFFF",
 			},
+			// series is an array of objects set above useEffect
 			series: [
 				{
-					name: "Value",
-					data: [...series],
+					data: [...seriesCurrent],
+				},
+				{
+					data: [...seriesPrevious],
 				},
 			],
 		});
-	}, []);
+	}, [data]);
 	return (
 		<div className="App">
 			<h1>DBIT Analytics</h1>
