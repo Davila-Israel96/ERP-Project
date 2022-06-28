@@ -1,7 +1,7 @@
-import { React, useState, useEffect } from 'react';
-import Highcharts from 'highcharts';
-import HighchartsReact from 'highcharts-react-official';
-import { CashFlow } from '../data/CashFlow';
+import { React, useState, useEffect } from "react";
+import Highcharts from "highcharts";
+import HighchartsReact from "highcharts-react-official";
+import { CashFlow } from "../data/CashFlow";
 function CashFlowChart({ chartType }) {
 	const [chartData, setChartData] = useState({});
 	const data = CashFlow;
@@ -26,16 +26,16 @@ function CashFlowChart({ chartType }) {
 	useEffect(() => {
 		setChartData({
 			title: {
-				text: 'Cash Flow',
+				text: "Cash Flow",
 			},
 			subtitle: {
-				text: 'Subtitle',
+				text: "Subtitle",
 			},
 			chart: {
 				type: chartType,
 			},
 			xAxis: {
-				type: 'category',
+				type: "category",
 				categories: [...categories],
 				title: {
 					text: null,
@@ -46,10 +46,10 @@ function CashFlowChart({ chartType }) {
 			yAxis: {
 				min: -1000,
 				title: {
-					text: 'Value',
+					text: "Value",
 				},
 				labels: {
-					overflow: 'justify',
+					overflow: "justify",
 				},
 			},
 			credits: { enabled: false },
@@ -57,38 +57,38 @@ function CashFlowChart({ chartType }) {
 				bar: {
 					dataLabels: {
 						enabled: true,
-						format: '${y}',
+						format: "${y}",
 					},
 				},
 			},
 			legend: {
-				layout: 'vertical',
-				align: 'right',
-				verticalAlign: 'top',
+				layout: "vertical",
+				align: "right",
+				verticalAlign: "top",
 				x: -40,
 				y: 80,
 				borderWidth: 1,
 				floating: true,
 				backgroundColor:
-					Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFFF',
+					Highcharts.defaultOptions.legend.backgroundColor || "#FFFFFFF",
 			},
 			// series is an array of objects set above useEffect
 			series: [
 				{
-					name: 'Current',
+					name: "Current",
 					data: [...seriesCurrent],
 					zones: [
 						{
 							value: 0,
-							color: '#FF2800',
+							color: "#FF2800",
 						},
 						{
-							color: '#05878A',
+							color: "#05878A",
 						},
 					],
 				},
 				{
-					name: 'Previous',
+					name: "Previous",
 					data: [...seriesPrevious],
 				},
 			],
