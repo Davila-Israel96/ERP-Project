@@ -1,6 +1,7 @@
 import './App.css';
 import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
 import CashFlowChart from './components/CashFlowChart';
 // when using certain modules, they must be imported and initialized separately
 /**
@@ -12,7 +13,7 @@ function App() {
 
 	return (
 		<div className='App'>
-			<h1>DBIT Analytics</h1>
+			<Navbar />
 			<Routes>
 				<Route path='/' element={<CashFlowChart chartType={chartType} />} />
 			</Routes>
