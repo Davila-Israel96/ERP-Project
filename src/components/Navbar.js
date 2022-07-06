@@ -18,6 +18,11 @@ export const Navbar = () => {
 								Forms
 							</Link>
 						</li>
+						<li>
+							<Link className="page-link" to="/login">
+								Log-in
+							</Link>
+						</li>
 					</ul>
 				</div>
 			</div>

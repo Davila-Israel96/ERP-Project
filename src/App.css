@@ -79,6 +79,7 @@ button:hover {
 		box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 		background: var(--custom-black);
 		justify-content: center;
+		width: auto;
 		margin: 0 auto;
 	}
 	.logo {
@@ -135,15 +136,19 @@ button:hover {
 		/* border-radius: 0.12em; */
 		box-sizing: border-box;
 		text-decoration: none;
-		font-family: "Sitka Heading Bold", sans-serif;
+		font-family: inherit;
 		font-kerning: 0.5px;
 		font-size: 1.9rem;
 		font-weight: 700;
-		font-style: italic;
-		color: whitesmoke;
+		/* font-style: italic; */
+		color: var(--custom-green);
 		text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
 		/* background: transparent; */
-		background-image: linear-gradient(90deg, white 23%, #077046 100%);
+		background-image: linear-gradient(
+			90deg,
+			var(--custom-gray) 23%,
+			var(--custom-green) 100%
+		);
 		background-size: 0% 3px;
 		background-repeat: no-repeat;
 		background-position: right bottom;

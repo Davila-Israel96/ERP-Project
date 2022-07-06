@@ -61,6 +61,7 @@ function CashFlowChart({ chartType }) {
 				bar: {
 					dataLabels: {
 						enabled: true,
+						// eslint-disable-next-line no-template-curly-in-string
 						format: "${y}",
 					},
 				},
