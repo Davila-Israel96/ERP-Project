@@ -1,16 +1,20 @@
-.App {
-	text-align: center;
-}
-
-.App-logo {
-	height: 40vmin;
-	pointer-events: none;
+:root {
+	/* variables used often */
+	/* color palette */
+	--custom-green: rgb(159, 236, 185);
+	--custom-beige: #f5e9d0;
+	--custom-tan: #97a592;
+	--custom-gray: #797a7e;
+	--custom-black: #2a2b2b;
 }
 
 @media (prefers-reduced-motion: no-preference) {
 	.App-logo {
 		animation: App-logo-spin infinite 20s linear;
 	}
+}
+.App {
+	background-color: var(--custom-beige);
 }
 
 .App-header {
@@ -31,43 +35,90 @@
 ul {
 	list-style-type: none;
 }
+.btn-container {
+	text-align: center;
+	margin-top: 20px;
+}
 
+button {
+	display: inline-block;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+		"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+		sans-serif;
+	font-size: 16pt;
+	font-weight: 700;
+	text-decoration: none;
+
+	color: rgba(28, 190, 131, 1);
+	background-color: transparent;
+	border: 3px solid rgba(28, 190, 131, 1);
+	border-radius: 100px;
+
+	padding: 0.3em 1.2em;
+	margin: 5px 10px;
+
+	background-size: 200% 100%;
+	background-image: linear-gradient(
+		to right,
+		transparent 50%,
+		rgba(28, 190, 131, 1) 50%
+	);
+	transition: background-position 0.3s cubic-bezier(0.19, 1, 0.22, 1) 0.1s,
+		color 0.5s ease 0s, background-color 0.5s ease;
+}
+
+button:hover {
+	color: rgba(255, 255, 255, 1);
+	background-color: rgba(28, 190, 131, 1);
+	background-position: -100% 100%;
+}
 /* Navbar Styling */
 @media screen and (min-width: 800px) {
 	nav {
 		/* border-bottom: 5px solid white; */
 		box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-		background: black;
+		background: var(--custom-black);
+		justify-content: center;
+		margin: 0 auto;
 	}
 	.logo {
+		grid-area: "logo";
 		height: 13vh;
+		max-height: 100px;
+		margin-left: 10px;
 	}
 	.nav-center {
-		max-width: 1220px;
+		max-width: 100%;
 		max-height: 100px;
-		margin: 0 auto;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: 0.1rem;
+		display: grid;
+		grid-template-rows: 1fr;
+		grid-template-columns: 1fr 2fr 1fr;
+		grid-template-areas: "logo" "title" "links";
 	}
 	.nav-header {
 		padding: 0;
 	}
+
 	.nav-title {
-		justify-self: center;
+		grid-area: "title";
+		max-height: 100px;
+		margin: 0 auto;
 		text-align: center;
+		justify-content: center;
+		justify-self: center;
 	}
 	.navbar-heading {
-		color: #077046;
+		color: var(--custom-green);
 		font-size: 2.3rem;
+		text-align: center;
 	}
 	.nav-toggle {
 		display: none;
 	}
 	.links-container {
+		grid-area: "links";
 		height: auto !important;
-		width: 80%;
+		width: auto;
 	}
 	.links {
 		display: flex;
@@ -84,7 +135,7 @@ ul {
 		/* border-radius: 0.12em; */
 		box-sizing: border-box;
 		text-decoration: none;
-		font-family: 'Sitka Heading Bold', sans-serif;
+		font-family: "Sitka Heading Bold", sans-serif;
 		font-kerning: 0.5px;
 		font-size: 1.9rem;
 		font-weight: 700;
@@ -111,6 +162,13 @@ ul {
 		/* color: var(--custom-red-lighter);
 	padding-left: 1.5rem; */
 	}
+}
+/* homepage styling */
+.chart-container {
+	width: max-content;
+	margin: 25px auto auto auto;
+	text-align: center;
+	justify-content: center;
 }
 
 @keyframes App-logo-spin {

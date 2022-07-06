@@ -2,6 +2,7 @@ import { React, useState, useEffect } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { CashFlow } from "../data/CashFlow";
+
 function CashFlowChart({ chartType }) {
 	const [chartData, setChartData] = useState({});
 	const data = CashFlow;
@@ -27,12 +28,16 @@ function CashFlowChart({ chartType }) {
 		setChartData({
 			title: {
 				text: "Cash Flow",
+				style: { fontSize: "40px", color: "#9FECB9", fontWeight: "bold" },
 			},
 			subtitle: {
 				text: "Subtitle",
 			},
 			chart: {
 				type: chartType,
+				height: 1200,
+				width: 1300,
+				backgroundColor: "#ffffff",
 			},
 			xAxis: {
 				type: "category",
@@ -41,10 +46,9 @@ function CashFlowChart({ chartType }) {
 					text: null,
 				},
 				min: 0,
-				max: 3,
 			},
 			yAxis: {
-				min: -1000,
+				min: -10000,
 				title: {
 					text: "Value",
 				},
@@ -66,7 +70,7 @@ function CashFlowChart({ chartType }) {
 				align: "right",
 				verticalAlign: "top",
 				x: -40,
-				y: 80,
+				y: 160,
 				borderWidth: 1,
 				floating: true,
 				backgroundColor:
@@ -95,7 +99,7 @@ function CashFlowChart({ chartType }) {
 		});
 	}, [chartType]);
 	return (
-		<div>
+		<div className="chart-container">
 			<HighchartsReact highcharts={Highcharts} options={chartData} />
 		</div>
 	);
