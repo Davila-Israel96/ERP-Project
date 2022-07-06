@@ -13,6 +13,12 @@
     }
 - Forms to visualize: Cash Flow, Liabilities, Assets, and Statement of Income
 
+- 07/06/22 - Changes made: {
+- CashFlow.js data was updated earlier this week
+- 'CashFlowChart.js' now shows all categories on file provided
+- CSS styling added for basically entire webapp
+  }
+
 # Instructions for launching application
 
 -> download and unzip the project folder
