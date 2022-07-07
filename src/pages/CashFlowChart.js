@@ -1,11 +1,11 @@
 import { React, useState, useEffect } from "react";
 import Highcharts from "highcharts";
-import HighchartsReact from "highcharts-react-official";
 import { CashFlow } from "../data/CashFlow";
-import { BarColumnChart } from "./BarColumnChart";
+import { BarColumnChart } from "../components/BarColumnChart";
 
 function CashFlowChart({ chartType }) {
-	const [chartData, setChartData] = useState({});
+	const [barChartData, setBarChartData] = useState({});
+	const [pieChartData, setPieChartData] = useState({});
 	const data = CashFlow;
 	let seriesCurrent = [];
 	let seriesPrevious = [];
@@ -26,7 +26,7 @@ function CashFlowChart({ chartType }) {
 
 	//TODO: CREATE FUNCTION TO CHOOSE CATEGORIES SHOWN
 	useEffect(() => {
-		setChartData({
+		setBarChartData({
 			title: {
 				text: "Cash Flow",
 				style: { fontSize: "40px", color: "#9FECB9", fontWeight: "bold" },
@@ -105,7 +105,7 @@ function CashFlowChart({ chartType }) {
 	}, [chartType]);
 	return (
 		<div className="chart-container">
-			<BarColumnChart chartOptions={chartData} />
+			<BarColumnChart chartOptions={barChartData} />
 		</div>
 	);
 }

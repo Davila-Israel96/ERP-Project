@@ -2,7 +2,7 @@ import "./App.css";
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import CashFlowChart from "./components/CashFlowChart";
+import CashFlowChart from "./pages/CashFlowChart";
 // when using certain modules, they must be imported and initialized separately
 /**
  * @description: Main page for application, App will act as the foundation
