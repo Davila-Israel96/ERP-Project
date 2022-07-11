@@ -19,6 +19,11 @@
 - CSS styling added for basically entire webapp
   }
 
+- 07/11/22 - Changes made: {
+- 'PieChart.js' and 'BarColumnChart.js' added in order to separate functionality
+- Piechart added to CashFlowChart page
+- }
+
 # Instructions for launching application
 
 -> download and unzip the project folder

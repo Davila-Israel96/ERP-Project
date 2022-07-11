@@ -2,6 +2,7 @@ import { React, useState, useEffect } from "react";
 import Highcharts from "highcharts";
 import { CashFlow } from "../data/CashFlow";
 import { BarColumnChart } from "../components/BarColumnChart";
+import { PieChart } from "../components/PieChart";
 
 function CashFlowChart({ chartType }) {
 	const [barChartData, setBarChartData] = useState({});
@@ -102,10 +103,46 @@ function CashFlowChart({ chartType }) {
 				},
 			],
 		});
+		setPieChartData({
+			title: {
+				text: "Current Year",
+			},
+			chart: {
+				type: "pie",
+				height: 800,
+				width: 1000,
+			},
+			tooltip: {
+				pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>",
+			},
+			plotOptions: {
+				pie: {
+					allowPointSelect: true,
+					cursor: "pointer",
+					dataLabels: {
+						enabled: true,
+						format: "<b>{point.name}</b>: {point.percentage:.1f}%",
+					},
+					showInLegend: true,
+				},
+			},
+			series: [
+				{
+					name: "Current",
+					data: [...seriesCurrent],
+				},
+			],
+		});
 	}, [chartType]);
+
 	return (
 		<div className="chart-container">
-			<BarColumnChart chartOptions={barChartData} />
+			<div>
+				<BarColumnChart chartOptions={barChartData} />
+			</div>
+			<div>
+				<PieChart chartOptions={pieChartData} />
+			</div>
 		</div>
 	);
 }
