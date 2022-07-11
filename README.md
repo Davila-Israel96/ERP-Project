@@ -22,6 +22,9 @@
 - 07/11/22 - Changes made: {
 - 'PieChart.js' and 'BarColumnChart.js' added in order to separate functionality
 - Piechart added to CashFlowChart page
+- Added functionality for switching between current and previous years
+- Pie chart series data is now state based
+-
 - }
 
 # Instructions for launching application

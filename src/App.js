@@ -2,7 +2,7 @@ import "./App.css";
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import CashFlowChart from "./pages/CashFlowChart";
+import AccountsChart from "./pages/AccountsChart";
 // when using certain modules, they must be imported and initialized separately
 /**
  * @description: Main page for application, App will act as the foundation
@@ -21,9 +21,12 @@ function App() {
 				<button type="button" onClick={() => setChartType("column")}>
 					COLUMN
 				</button>
+				<button type="button" onClick={() => setChartType("polygon")}>
+					POLYGON
+				</button>
 			</div>
 			<Routes>
-				<Route path="/" element={<CashFlowChart chartType={chartType} />} />
+				<Route path="/" element={<AccountsChart chartType={chartType} />} />
 			</Routes>
 		</div>
 	);
