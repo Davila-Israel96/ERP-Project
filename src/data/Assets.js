@@ -1,0 +1,98 @@
+export const Assets = [
+	{
+		row: "Bonds",
+		name: "Bonds",
+		current: 6200,
+		previous: 8500,
+	},
+	{
+		row: "Pref. Stocks",
+		name: "Preffered Stocks",
+		current: 9463,
+		previous: 11000,
+	},
+	{
+		row: "Com. Stock",
+		name: "Common Stock",
+		current: 5000,
+		previous: 4200,
+	},
+	{
+		row: "First Liens",
+		name: "First Liens",
+		current: 32200,
+		previous: 40000,
+	},
+	{
+		row: "Other Liens",
+		name: "Other than first Liens",
+		current: 8000,
+		previous: 14000,
+	},
+	{
+		row: "Occ. Property",
+		name: "Occupied Properties",
+		current: 105000,
+		previous: 60450,
+	},
+	{
+		row: "Inc.Prod.Property",
+		name: "Properties for Income Production",
+		current: 52000,
+		previous: 24000,
+	},
+	{
+		row: "Sale Properties",
+		name: "Properties for sale",
+		current: 75000,
+		previous: 100000,
+	},
+	{
+		row: "Cash&CashEquiv.",
+		name: "Cash and cash equivalents",
+		current: 68420,
+		previous: 71000,
+	},
+	{
+		row: "Contract Loans",
+		name: "Contract Loans",
+		current: 9000,
+		previous: 14560,
+	},
+	{
+		row: "Derivitaves",
+		name: "Derivatives",
+		current: 2600,
+		previous: 7500,
+	},
+	{
+		row: "Other Inv. Assets",
+		name: "Other Invested Assets",
+		current: 13500,
+		previous: 9820,
+	},
+	{
+		row: "Security Rec.",
+		name: "Receivables for securities",
+		current: 46000,
+		previous: 67500,
+	},
+	{
+		row: "Sec.Reinvested",
+		name: "Securities lending collateral assets",
+		current: 26500,
+		previous: 15890,
+	},
+	{
+		row: "Agg.Write-ins",
+		name: "Aggregate write-ins for reinvested assets",
+		current: 7600,
+		previous: 13400,
+	},
+	{
+		row: "Subtotals&Cash",
+		name: "SubTotals, cash, and equivalents",
+		current: 466483,
+		previous: 582420,
+	},
+];

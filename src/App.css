@@ -6,6 +6,9 @@
 	--custom-tan: #97a592;
 	--custom-gray: #797a7e;
 	--custom-black: #2a2b2b;
+
+	/* transition for nav toggle */
+	--transition: all 0.3s linear;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -39,6 +42,11 @@ ul {
 .btn-container {
 	text-align: center;
 	margin-top: 20px;
+	position: relative;
+	z-index: 1;
+}
+.chart-type-btn {
+	z-index: 1;
 }
 
 button {
@@ -49,7 +57,6 @@ button {
 	font-size: 16pt;
 	font-weight: 700;
 	text-decoration: none;
-
 	color: rgba(28, 190, 131, 1);
 	background-color: transparent;
 	border: 3px solid rgba(28, 190, 131, 1);
@@ -74,6 +81,10 @@ button:hover {
 	background-color: rgba(28, 190, 131, 1);
 	background-position: -100% 100%;
 }
+
+ul {
+	list-style-type: none;
+}
 /* Navbar Styling */
 @media screen and (min-width: 800px) {
 	nav {
@@ -85,56 +96,79 @@ button:hover {
 		margin: 0 auto;
 	}
 	.logo {
-		grid-area: "logo";
+		flex-basis: 10%;
 		height: 13vh;
 		max-height: 100px;
 		margin-left: 10px;
 	}
 	.nav-center {
 		max-width: 100%;
+		height: 100px;
 		max-height: 100px;
-		display: grid;
+		align-content: center;
+		justify-content: center;
+		/* display: grid;
 		grid-template-rows: 1fr;
 		grid-template-columns: 1fr 2fr 1fr;
-		grid-template-areas: "logo" "title" "links";
+		grid-template-areas: "logo" "title" "links"; */
 	}
 	.nav-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 		padding: 0;
 	}
 
 	.nav-title {
-		grid-area: "title";
 		max-height: 100px;
-		margin: 0 auto;
 		text-align: center;
-		justify-content: center;
 		justify-self: center;
 	}
 	.navbar-heading {
+		background-color: transparent;
+		flex-basis: 80%;
 		color: var(--custom-green);
+		position: relative;
 		font-size: 2.3rem;
 		text-align: center;
+		justify-self: center;
+		justify-content: center;
+		margin: 0 auto;
 	}
 	.nav-toggle {
-		display: none;
+		flex-basis: 10%;
+		font-size: 2.3rem;
+		/* margin-right: 5%; */
+		color: var(--custom-green);
+		background: transparent;
+		border-color: transparent;
+		position: end;
+		cursor: pointer;
 	}
+	.nav-toggle:hover {
+		color: var(--custom-green);
+		transform: rotate(90deg);
+		background-color: transparent;
+	}
+
 	.links-container {
-		grid-area: "links";
-		height: auto !important;
-		width: auto;
+		height: auto;
+		max-height: max-content;
+		position: relative;
+		justify-self: end;
+		background-color: var(--custom-black);
+		z-index: 2;
+		overflow: hidden;
+		transition: var(--transition);
 	}
-	.links {
-		display: flex;
-		justify-content: end;
-		margin-left: 2em;
-	}
+
 	.page-link {
 		display: block;
 		align-self: center;
 		height: 85%;
 		padding: 0.46em 1.1em !important;
 		/* border: 0.1em solid #000000; */
-		margin: 0 0.2em 0.2em 0;
+		margin: 0 0.2em 0.2em 1em;
 		/* border-radius: 0.12em; */
 		box-sizing: border-box;
 		text-decoration: none;
@@ -154,35 +188,53 @@ button:hover {
 		background-size: 0% 3px;
 		background-repeat: no-repeat;
 		background-position: right bottom;
-		text-align: center;
+		text-align: end;
 		transition: background-size 300ms ease;
 	}
-	.page-link {
-		padding-right: 0 !important;
-		margin: 0 0.5rem !important;
-	}
+
 	.page-link:hover {
 		padding: 0;
 	}
 	.page-link:hover {
 		background-size: 90% 3px;
-		/* color: var(--custom-red-lighter);
-	padding-left: 1.5rem; */
 	}
 }
+
 /* homepage styling */
 .chart-container {
 	width: max-content;
+	height: max-content;
+	display: grid;
 	margin: 25px auto auto auto;
 	text-align: center;
 	justify-content: center;
+	justify-items: center;
+	grid-template-columns: 1fr;
+	grid-template-rows: 3fr 1fr 2fr;
+	grid-template-areas:
+		"bar" "bar" "bar"
+		"title" "title" "title"
+		"pie" "pie" "pie";
 }
 
-@keyframes App-logo-spin {
-	from {
-		transform: rotate(0deg);
-	}
-	to {
-		transform: rotate(360deg);
-	}
+.bar-container {
+	grid-area: bar;
+}
+
+.total-title {
+	grid-area: title;
+	text-align: center;
+	font-size: 36pt;
+	font-weight: 700;
+	color: rgba(28, 190, 131, 1);
+	margin: 0 auto;
+}
+
+.pie-container {
+	grid-area: pie;
+	display: grid;
+	width: 1300px; /* this was done to ensure charts lined up*/
+	margin: 25px auto auto auto;
+	grid-template-columns: 2fr 1fr;
+	grid-template-rows: 1fr;
 }

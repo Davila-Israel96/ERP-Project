@@ -24,6 +24,16 @@
 - Piechart added to CashFlowChart page
 - Added functionality for switching between current and previous years
 - Pie chart series data is now state based
+- }
+
+- 07/12/22 - Changes made: {
+- Added more styling, changed up color values of bar chart, and positions Pie chart on page
+-
+- }
+
+- 07/13/22 - Changes made {
+- Changed navbar functionality to allow for dropdown of links to charts
+- 'AssetChart.js' now renders succesfully
 -
 - }
 

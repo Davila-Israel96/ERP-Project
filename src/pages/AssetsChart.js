@@ -1,25 +1,24 @@
 import { React, useState, useEffect } from "react";
 import Highcharts from "highcharts";
 import Polygon from "highcharts/highcharts-more";
-import { AccountsData } from "../data/AccountsData";
+import { Assets } from "../data/Assets";
 import { BarColumnChart } from "../components/BarColumnChart";
 import { PieChart } from "../components/PieChart";
 
 Polygon(Highcharts);
-function AccountsChart({ chartType }) {
-	// needs optimization
+function AssetsChart({ chartType }) {
 	const [barChartData, setBarChartData] = useState({});
 	const [pieChartData, setPieChartData] = useState({});
 	const [totalsData, setTotalsData] = useState([]);
 	const [year, setYear] = useState(true);
-	const data = AccountsData;
+	const data = Assets;
+
 	let seriesCurrent = [];
 	let currentTotals = [];
 	let seriesPrevious = [];
 	let previousTotals = [];
 	let categories = [];
 
-	// get all objects from array and format them for use in w/ highcharts
 	for (let item of data) {
 		if (item.name.includes("Total") || item.name.includes("Net Income")) {
 			currentTotals.push({
@@ -42,13 +41,12 @@ function AccountsChart({ chartType }) {
 			});
 		}
 	}
-	//TODO: CREATE FUNCTION TO CHOOSE CATEGORIES SHOWN
 	useEffect(() => {
 		// setting up format for both bar and column charts
 		// layout similiar so only one statement needed for both
 		setBarChartData({
 			title: {
-				text: "Accounts",
+				text: "Assets",
 				style: { fontSize: "40px", color: "#9FECB9", fontWeight: "bold" },
 			},
 			subtitle: {
@@ -172,6 +170,11 @@ function AccountsChart({ chartType }) {
 				},
 			],
 		});
+		let total = 0;
+		currentTotals.forEach((item) => {
+			total += item.current;
+		});
+		console.log(total);
 	}, [chartType, year]);
 
 	// change from current to previous
@@ -198,4 +201,4 @@ function AccountsChart({ chartType }) {
 	);
 }
 
-export default AccountsChart;
+export default AssetsChart;
