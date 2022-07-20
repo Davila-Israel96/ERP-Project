@@ -42,7 +42,6 @@ ul {
 .btn-container {
 	text-align: center;
 	margin-top: 20px;
-	position: relative;
 	z-index: 1;
 }
 .chart-type-btn {
@@ -61,10 +60,8 @@ button {
 	background-color: transparent;
 	border: 3px solid rgba(28, 190, 131, 1);
 	border-radius: 100px;
-
 	padding: 0.3em 1.2em;
 	margin: 5px 10px;
-
 	background-size: 200% 100%;
 	background-image: linear-gradient(
 		to right,
@@ -88,7 +85,7 @@ ul {
 /* Navbar Styling */
 @media screen and (min-width: 800px) {
 	nav {
-		/* border-bottom: 5px solid white; */
+		border-bottom: var(--custom-green) solid 5px;
 		box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 		background: var(--custom-black);
 		justify-content: center;
@@ -107,10 +104,6 @@ ul {
 		max-height: 100px;
 		align-content: center;
 		justify-content: center;
-		/* display: grid;
-		grid-template-rows: 1fr;
-		grid-template-columns: 1fr 2fr 1fr;
-		grid-template-areas: "logo" "title" "links"; */
 	}
 	.nav-header {
 		display: flex;
@@ -138,7 +131,6 @@ ul {
 	.nav-toggle {
 		flex-basis: 10%;
 		font-size: 2.3rem;
-		/* margin-right: 5%; */
 		color: var(--custom-green);
 		background: transparent;
 		border-color: transparent;
@@ -167,19 +159,15 @@ ul {
 		align-self: center;
 		height: 85%;
 		padding: 0.46em 1.1em !important;
-		/* border: 0.1em solid #000000; */
 		margin: 0 0.2em 0.2em 1em;
-		/* border-radius: 0.12em; */
 		box-sizing: border-box;
 		text-decoration: none;
 		font-family: inherit;
 		font-kerning: 0.5px;
 		font-size: 1.9rem;
 		font-weight: 700;
-		/* font-style: italic; */
 		color: var(--custom-green);
 		text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
-		/* background: transparent; */
 		background-image: linear-gradient(
 			90deg,
 			var(--custom-gray) 23%,
@@ -210,11 +198,12 @@ ul {
 	justify-content: center;
 	justify-items: center;
 	grid-template-columns: 1fr;
-	grid-template-rows: 3fr 1fr 2fr;
+	grid-template-rows: 3fr 1fr 2fr 1fr;
 	grid-template-areas:
 		"bar" "bar" "bar"
 		"title" "title" "title"
-		"pie" "pie" "pie";
+		"pie" "pie" "pie"
+		"percent" "percent" "percent";
 }
 
 .bar-container {
@@ -234,7 +223,49 @@ ul {
 	grid-area: pie;
 	display: grid;
 	width: 1300px; /* this was done to ensure charts lined up*/
-	margin: 25px auto auto auto;
+	margin: 25px auto;
 	grid-template-columns: 2fr 1fr;
 	grid-template-rows: 1fr;
+	grid-template-areas: "totals  btn";
+}
+.pie-chart {
+	grid-area: totals;
+}
+.pie-btns {
+	grid-area: btn;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr 1fr;
+	grid-template-areas:
+		"button"
+		"desc";
+}
+.year-btn {
+	grid-area: button;
+	width: 60%;
+	height: 40%;
+	align-self: center;
+	justify-self: center;
+}
+.description {
+	grid-area: desc;
+	align-self: center;
+	font-size: 20pt;
+	font-weight: 500;
+}
+
+.percent-container {
+	grid-area: percent;
+	display: grid;
+	width: 1300px; /* this was done to ensure charts lined up*/
+	margin: 25px auto;
+	grid-template-columns: 1fr 2fr;
+	grid-template-rows: 1fr;
+	grid-template-areas: "avgDesc change";
+}
+.percent-chart {
+	grid-area: change;
+}
+.percent-desc {
+	grid-area: avgDesc;
 }

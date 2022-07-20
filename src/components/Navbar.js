@@ -1,8 +1,9 @@
-import { React, useState, useRef, useEffect, useContext } from "react";
+import { React, useState, useRef, useEffect } from "react";
 import { FaBars } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 export const Navbar = () => {
+	const [chartType, setChartType] = useState("bar");
 	const [showLinks, setShowLinks] = useState(false);
 	const linksContainerRef = useRef(null);
 	const linksRef = useRef(null);
@@ -23,31 +24,54 @@ export const Navbar = () => {
 	};
 
 	return (
-		<nav>
-			<div className="nav-center">
-				<div className="nav-header">
-					<img className="logo" src="/logov2.png" alt="logo" />
-					<h1 className="navbar-heading">DIBTech Financial Analyzer</h1>
-					<button className="nav-toggle" onClick={toggleButtons}>
-						<FaBars />
-					</button>
+		<>
+			<nav>
+				<div className="nav-center">
+					<div className="nav-header">
+						<img className="logo" src="/logov2.png" alt="logo" />
+						<h1 className="navbar-heading">DIBTech Financial Analyzer</h1>
+						<button className="nav-toggle" onClick={toggleButtons}>
+							<FaBars />
+						</button>
+					</div>
+					<div className="links-container" ref={linksContainerRef}>
+						<ul className="links" ref={linksRef}>
+							<li>
+								<Link className="page-link" to="/auth/accounts">
+									Accounts
+								</Link>
+							</li>
+							<li>
+								<Link className="page-link" to="/auth/assets">
+									Assets
+								</Link>
+							</li>
+						</ul>
+					</div>
 				</div>
-				<div className="links-container" ref={linksContainerRef}>
-					<ul className="links" ref={linksRef}>
-						<li>
-							<Link className="page-link" to="/accounts">
-								Accounts
-							</Link>
-						</li>
-						<li>
-							<Link className="page-link" to="/assets">
-								Assets
-							</Link>
-						</li>
-					</ul>
-				</div>
+			</nav>
+			<div className="btn-container">
+				<button
+					className="chart-type-btn"
+					type="button"
+					onClick={() => setChartType("bar")}>
+					BAR
+				</button>
+				<button
+					className="chart-type-btn"
+					type="button"
+					onClick={() => setChartType("column")}>
+					COLUMN
+				</button>
+				<button
+					className="chart-type-btn"
+					type="button"
+					onClick={() => setChartType("polygon")}>
+					POLYGON
+				</button>
 			</div>
-		</nav>
+			<Outlet context={chartType} />
+		</>
 	);
 };
 

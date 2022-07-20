@@ -1,22 +1,27 @@
 import { React, useState, useEffect } from "react";
 import Highcharts from "highcharts";
 import Polygon from "highcharts/highcharts-more";
+import { useOutletContext } from "react-router-dom";
 import { Assets } from "../data/Assets";
 import { BarColumnChart } from "../components/BarColumnChart";
 import { PieChart } from "../components/PieChart";
+import { PercentChange } from "../components/PercentChange";
+import SplitPie from "../components/SplitPie";
 
 Polygon(Highcharts);
-function AssetsChart({ chartType }) {
+function AssetsChart() {
 	const [barChartData, setBarChartData] = useState({});
 	const [pieChartData, setPieChartData] = useState({});
 	const [totalsData, setTotalsData] = useState([]);
 	const [year, setYear] = useState(true);
+	const chartType = useOutletContext();
 	const data = Assets;
 
 	let seriesCurrent = [];
 	let currentTotals = [];
 	let seriesPrevious = [];
 	let previousTotals = [];
+	let percentChange = PercentChange(data);
 	let categories = [];
 
 	for (let item of data) {
@@ -41,6 +46,7 @@ function AssetsChart({ chartType }) {
 			});
 		}
 	}
+
 	useEffect(() => {
 		// setting up format for both bar and column charts
 		// layout similiar so only one statement needed for both
@@ -170,14 +176,9 @@ function AssetsChart({ chartType }) {
 				},
 			],
 		});
-		let total = 0;
-		currentTotals.forEach((item) => {
-			total += item.current;
-		});
-		console.log(total);
 	}, [chartType, year]);
 
-	// change from current to previous
+	// change from current to previous year
 	const handleChartChange = (e) => {
 		e.preventDefault();
 		setYear(!year);
@@ -190,12 +191,27 @@ function AssetsChart({ chartType }) {
 			</div>
 			<div className="total-title">Yearly Totals</div>
 			<div className="pie-container">
-				<PieChart chartOptions={pieChartData} />
+				<PieChart className="pie-chart" chartOptions={pieChartData} />
 				<div className="pie-btns">
-					<button type="button" onClick={handleChartChange}>
+					<button
+						className="year-btn"
+						type="button"
+						onClick={handleChartChange}>
 						Change Year
 					</button>
+					<p className="description">
+						When the form is input, the application separates the lines
+						regarding totals and places them into the pie chart pictured here.
+					</p>
 				</div>
+			</div>
+			<div className="percent-container">
+				<SplitPie className="percent-chart" values={percentChange} />
+				<p className="percent-desc">
+					Form values from each year are compared with a function within the
+					application, a percentage change is calculated, then input to the
+					chart.
+				</p>
 			</div>
 		</div>
 	);

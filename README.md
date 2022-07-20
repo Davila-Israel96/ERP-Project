@@ -37,6 +37,20 @@
 -
 - }
 
+- 07/18/22 - Changes made {
+- Finished adding values to Assets chart page
+- Added 'useOutletContext' to pages to control chartType state value
+-
+- }
+
+- 07/20/22 - Changes made {
+- Added SplitPie.js to components
+- Added Pie Chart with percent change in values from forms
+- Added descriptions to pie charts at bottom of AccountsChart.js
+- Styled added charts and descriptions
+- }
+-
+
 # Instructions for launching application
 
 -> download and unzip the project folder

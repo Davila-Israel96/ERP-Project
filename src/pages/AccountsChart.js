@@ -1,17 +1,19 @@
 import { React, useState, useEffect } from "react";
 import Highcharts from "highcharts";
 import Polygon from "highcharts/highcharts-more";
+import { useOutletContext } from "react-router-dom";
 import { AccountsData } from "../data/AccountsData";
 import { BarColumnChart } from "../components/BarColumnChart";
 import { PieChart } from "../components/PieChart";
 
 Polygon(Highcharts);
-function AccountsChart({ chartType }) {
+function AccountsChart() {
 	// needs optimization
 	const [barChartData, setBarChartData] = useState({});
 	const [pieChartData, setPieChartData] = useState({});
 	const [totalsData, setTotalsData] = useState([]);
 	const [year, setYear] = useState(true);
+	const chartType = useOutletContext();
 	const data = AccountsData;
 	let seriesCurrent = [];
 	let currentTotals = [];
