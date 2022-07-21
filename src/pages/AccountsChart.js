@@ -1,24 +1,27 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useRef } from "react";
 import Highcharts from "highcharts";
 import Polygon from "highcharts/highcharts-more";
 import { useOutletContext } from "react-router-dom";
 import { AccountsData } from "../data/AccountsData";
 import { BarColumnChart } from "../components/BarColumnChart";
 import { PieChart } from "../components/PieChart";
+import { PercentChange } from "../components/PercentChange";
+import SplitPie from "../components/SplitPie";
 
 Polygon(Highcharts);
 function AccountsChart() {
 	// needs optimization
 	const [barChartData, setBarChartData] = useState({});
 	const [pieChartData, setPieChartData] = useState({});
-	const [totalsData, setTotalsData] = useState([]);
-	const [year, setYear] = useState(true);
+	const [totalsData, setTotalsData] = useState();
+	let yearRef = useRef(true);
 	const chartType = useOutletContext();
 	const data = AccountsData;
 	let seriesCurrent = [];
 	let currentTotals = [];
 	let seriesPrevious = [];
 	let previousTotals = [];
+	let percentChange = PercentChange(data);
 	let categories = [];
 
 	// get all objects from array and format them for use in w/ highcharts
@@ -44,10 +47,43 @@ function AccountsChart() {
 			});
 		}
 	}
-	//TODO: CREATE FUNCTION TO CHOOSE CATEGORIES SHOWN
-	useEffect(() => {
-		// setting up format for both bar and column charts
-		// layout similiar so only one statement needed for both
+	async function prepPieChart() {
+		// kind of a hard coded way to make sure the chart renders something initially.
+		if (totalsData === undefined) {
+			setTotalsData(currentTotals);
+		}
+		setPieChartData({
+			title: {
+				text: `${yearRef.current === true ? "Current Year" : "Previous Year"}`,
+				style: { fontSize: "30px", color: "#9FECB9", fontWeight: "bold" },
+			},
+			chart: {
+				type: "pie",
+				height: 600,
+				width: 850,
+			},
+			tooltip: {
+				pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>",
+			},
+			plotOptions: {
+				pie: {
+					allowPointSelect: true,
+					cursor: "pointer",
+					dataLabels: {
+						enabled: true,
+						format: "<b>{point.name}</b>: {point.percentage:.1f}%",
+					},
+					showInLegend: true,
+				},
+			},
+			series: [
+				{
+					data: await totalsData,
+				},
+			],
+		});
+	}
+	function prepBarChart() {
 		setBarChartData({
 			title: {
 				text: "Accounts",
@@ -137,49 +173,36 @@ function AccountsChart() {
 				},
 			],
 		});
-		// lazy way of dealing with year change
-		if (year) {
-			setTotalsData(currentTotals);
-		} else if (!year) {
-			setTotalsData(previousTotals);
-		}
-		// setting format of pie chart
-		setPieChartData({
-			title: {
-				text: `${year === true ? "Current Year" : "Previous Year"}`,
-				style: { fontSize: "30px", color: "#9FECB9", fontWeight: "bold" },
-			},
-			chart: {
-				type: "pie",
-				height: 600,
-				width: 850,
-			},
-			tooltip: {
-				pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>",
-			},
-			plotOptions: {
-				pie: {
-					allowPointSelect: true,
-					cursor: "pointer",
-					dataLabels: {
-						enabled: true,
-						format: "<b>{point.name}</b>: {point.percentage:.1f}%",
-					},
-					showInLegend: true,
-				},
-			},
-			series: [
-				{
-					data: totalsData,
-				},
-			],
-		});
-	}, [chartType, year]);
+	}
+
+	useEffect(() => {
+		// setting up format for both bar and column charts
+		// layout similiar so only one statement needed for both
+		prepBarChart();
+	}, [chartType]);
+	// using separate useEffects since I don't need bar chart re-rendering
+	// when a change is made to the pie chart
+	useEffect(() => {
+		prepPieChart();
+	}, [totalsData]);
 
 	// change from current to previous
-	const handleChartChange = (e) => {
+	function handleChartChange(e) {
 		e.preventDefault();
-		setYear(!year);
+		yearRef.current = !yearRef.current;
+		console.log(yearRef.current);
+
+		changeTotals();
+	}
+
+	const changeTotals = () => {
+		console.log("changeTotals " + yearRef.current);
+		if (yearRef.current === true) {
+			setTotalsData(currentTotals);
+		}
+		if (yearRef.current === false) {
+			setTotalsData(previousTotals);
+		}
 	};
 
 	return (
@@ -189,12 +212,33 @@ function AccountsChart() {
 			</div>
 			<div className="total-title">Yearly Totals</div>
 			<div className="pie-container">
-				<PieChart chartOptions={pieChartData} />
+				<PieChart className="pie-chart" chartOptions={pieChartData} />
 				<div className="pie-btns">
-					<button type="button" onClick={handleChartChange}>
+					<button
+						className="year-btn"
+						type="button"
+						onClick={(e) => handleChartChange(e)}>
 						Change Year
 					</button>
+					<p className="description">
+						When the form is input, the application separates the lines
+						regarding totals and places them into the pie chart pictured here.
+					</p>
 				</div>
+			</div>
+			<div className="percent-container">
+				<SplitPie
+					className="percent-chart"
+					values={percentChange}
+					minPoint={10}
+					maxPoint={800}
+					zMax={500}
+				/>
+				<p className="percent-desc">
+					Form values from each year are compared with a function within the
+					application, a percentage change is calculated, then input to the
+					chart.
+				</p>
 			</div>
 		</div>
 	);

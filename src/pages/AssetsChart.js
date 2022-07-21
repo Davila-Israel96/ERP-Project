@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useRef } from "react";
 import Highcharts from "highcharts";
 import Polygon from "highcharts/highcharts-more";
 import { useOutletContext } from "react-router-dom";
@@ -12,8 +12,8 @@ Polygon(Highcharts);
 function AssetsChart() {
 	const [barChartData, setBarChartData] = useState({});
 	const [pieChartData, setPieChartData] = useState({});
-	const [totalsData, setTotalsData] = useState([]);
-	const [year, setYear] = useState(true);
+	const [totalsData, setTotalsData] = useState();
+	let yearRef = useRef(true);
 	const chartType = useOutletContext();
 	const data = Assets;
 
@@ -46,8 +46,7 @@ function AssetsChart() {
 			});
 		}
 	}
-
-	useEffect(() => {
+	function prepBarChart() {
 		// setting up format for both bar and column charts
 		// layout similiar so only one statement needed for both
 		setBarChartData({
@@ -139,16 +138,16 @@ function AssetsChart() {
 				},
 			],
 		});
-		// lazy way of dealing with year change
-		if (year) {
+	}
+
+	async function prepPieChart() {
+		// kind of a hard coded way to make sure the chart renders something initially.
+		if (totalsData === undefined) {
 			setTotalsData(currentTotals);
-		} else if (!year) {
-			setTotalsData(previousTotals);
 		}
-		// setting format of pie chart
 		setPieChartData({
 			title: {
-				text: `${year === true ? "Current Year" : "Previous Year"}`,
+				text: `${yearRef.current === true ? "Current Year" : "Previous Year"}`,
 				style: { fontSize: "30px", color: "#9FECB9", fontWeight: "bold" },
 			},
 			chart: {
@@ -172,16 +171,35 @@ function AssetsChart() {
 			},
 			series: [
 				{
-					data: totalsData,
+					data: await totalsData,
 				},
 			],
 		});
-	}, [chartType, year]);
+	}
+	useEffect(() => {
+		prepBarChart();
+	}, [chartType]);
+	useEffect(() => {
+		prepPieChart();
+	}, [totalsData]);
 
-	// change from current to previous year
-	const handleChartChange = (e) => {
+	// change from current to previous
+	function handleChartChange(e) {
 		e.preventDefault();
-		setYear(!year);
+		yearRef.current = !yearRef.current;
+		console.log(yearRef.current);
+
+		changeTotals();
+	}
+
+	const changeTotals = () => {
+		console.log("changeTotals " + yearRef.current);
+		if (yearRef.current === true) {
+			setTotalsData(currentTotals);
+		}
+		if (yearRef.current === false) {
+			setTotalsData(previousTotals);
+		}
 	};
 
 	return (
@@ -196,7 +214,7 @@ function AssetsChart() {
 					<button
 						className="year-btn"
 						type="button"
-						onClick={handleChartChange}>
+						onClick={(e) => handleChartChange(e)}>
 						Change Year
 					</button>
 					<p className="description">
@@ -206,7 +224,13 @@ function AssetsChart() {
 				</div>
 			</div>
 			<div className="percent-container">
-				<SplitPie className="percent-chart" values={percentChange} />
+				<SplitPie
+					className="percent-chart"
+					values={percentChange}
+					minPoint={10}
+					maxPoint={800}
+					zMax={1000}
+				/>
 				<p className="percent-desc">
 					Form values from each year are compared with a function within the
 					application, a percentage change is calculated, then input to the

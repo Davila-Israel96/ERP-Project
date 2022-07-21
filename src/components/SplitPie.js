@@ -4,7 +4,7 @@ import HighchartsReact from "highcharts-react-official";
 import VariablePie from "highcharts/modules/variable-pie";
 
 VariablePie(Highcharts);
-function SplitPie({ values }) {
+function SplitPie({ values, minPoint, maxPoint, zMax }) {
 	return (
 		<HighchartsReact
 			highcharts={Highcharts}
@@ -26,14 +26,14 @@ function SplitPie({ values }) {
 					headerFormat: "",
 					pointFormat:
 						'<span style="color:{point.color}">\u25CF</span> <b>{point.name}</b><br/>' +
-						"% Change: <b>{point.y}</b><br/>" +
-						"Change: <b>{point.z}</b>",
+						"% Change: <b>{point.z}</b><br/>" +
+						"Change: <b>{point.y}</b>",
 				},
 				series: [
 					{
-						minPointSize: 5,
-						maxPointSize: 200,
-						zMax: 15000,
+						minPointSize: minPoint,
+						maxPointSize: maxPoint,
+						zMax: zMax,
 						innerSize: "10%",
 						name: "Percent Changes",
 						data: values,

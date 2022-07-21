@@ -1,5 +1,3 @@
-import React from "react";
-
 /**
  * @description reusable function to calculate the percentage change
  * from previous year to the current year to use in chart pages.
@@ -14,13 +12,11 @@ export function PercentChange(data) {
 	for (let item of data) {
 		const { row, previous, current } = item;
 		difference = current - previous;
-		console.log("difference" + difference);
 		percentChange = (difference / previous) * 100;
-		console.log("per change: " + percentChange);
 		percentChangeArr.push({
 			name: row,
-			y: Math.abs(percentChange),
-			z: Math.abs(difference),
+			y: Math.abs(difference),
+			z: Math.abs(percentChange),
 		});
 	}
 	return percentChangeArr;
