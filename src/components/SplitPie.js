@@ -21,6 +21,11 @@ function SplitPie({ values, minPoint, maxPoint, zMax }) {
 				},
 				title: {
 					text: "Percent Changes in values",
+					style: {
+						fontSize: "30px",
+						color: "#9FECB9",
+						fontWeight: "bold",
+					},
 				},
 				tooltip: {
 					headerFormat: "",
