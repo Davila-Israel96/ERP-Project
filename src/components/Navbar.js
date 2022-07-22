@@ -37,13 +37,18 @@ export const Navbar = () => {
 					<div className="links-container" ref={linksContainerRef}>
 						<ul className="links" ref={linksRef}>
 							<li>
-								<Link className="page-link" to="/auth/accounts">
+								<Link className="page-link" to="/accounts">
 									Accounts
 								</Link>
 							</li>
 							<li>
-								<Link className="page-link" to="/auth/assets">
+								<Link className="page-link" to="/assets">
 									Assets
+								</Link>
+							</li>
+							<li>
+								<Link className="page-link" to="/liabilities">
+									Liabilities
 								</Link>
 							</li>
 						</ul>
