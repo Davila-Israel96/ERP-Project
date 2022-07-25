@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { React, useState, useEffect, useRef } from "react";
 import Highcharts from "highcharts";
 import Polygon from "highcharts/highcharts-more";
