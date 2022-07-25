@@ -13,6 +13,9 @@ function AssetsChart() {
 	const [barChartData, setBarChartData] = useState({});
 	const [pieChartData, setPieChartData] = useState({});
 	const [totalsData, setTotalsData] = useState();
+	// max value used for formatting chart
+	const [currentMax, setCurrentMax] = useState(0);
+	const [previousMax, setPreviousMax] = useState(0);
 	let yearRef = useRef(true);
 	const chartType = useOutletContext();
 	const data = Assets;
@@ -44,8 +47,16 @@ function AssetsChart() {
 				name: item.row,
 				y: item.previous,
 			});
+			if (item.current > currentMax) {
+				setCurrentMax(item.current);
+			}
+			if (item.previous > previousMax) {
+				setPreviousMax(item.previous);
+			}
 		}
 	}
+	console.log("Current Max " + currentMax);
+	console.log("Prev Max " + previousMax);
 	function prepBarChart() {
 		// setting up format for both bar and column charts
 		// layout similiar so only one statement needed for both
@@ -73,7 +84,10 @@ function AssetsChart() {
 				min: 0,
 			},
 			yAxis: {
-				min: -8000,
+				min: 0,
+				max: `${
+					currentMax > previousMax ? currentMax + 1000 : previousMax + 1000
+				}`,
 				title: {
 					text: "Value",
 				},

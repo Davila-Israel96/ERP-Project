@@ -51,6 +51,11 @@ export const Navbar = () => {
 									Liabilities
 								</Link>
 							</li>
+							<li>
+								<Link className="page-link" to="/cash-flow">
+									Cash Flow
+								</Link>
+							</li>
 						</ul>
 					</div>
 				</div>

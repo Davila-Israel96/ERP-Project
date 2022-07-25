@@ -49,7 +49,12 @@
 - Added descriptions to pie charts at bottom of AccountsChart.js
 - Styled added charts and descriptions
 - }
--
+
+- 07/25/2022 - Changes Made {
+- Added Liabilites chart and Cash Flow chart
+- Made some minor styling changes
+- Included responsive totals in charts
+- }
 
 # Instructions for launching application
 

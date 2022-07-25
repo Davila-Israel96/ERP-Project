@@ -2,14 +2,14 @@ import { React, useState, useEffect, useRef } from "react";
 import Highcharts from "highcharts";
 import Polygon from "highcharts/highcharts-more";
 import { useOutletContext } from "react-router-dom";
-import { LiabilitiesData } from "../data/LiabilitiesData";
+import { CashFlow } from "../data/CashFlow";
 import { BarColumnChart } from "../components/BarColumnChart";
 import { PieChart } from "../components/PieChart";
 import { PercentChange } from "../components/PercentChange";
 import SplitPie from "../components/SplitPie";
 
 Polygon(Highcharts);
-function LiabilitiesChart() {
+function CashFlowChart() {
 	const [barChartData, setBarChartData] = useState({});
 	const [pieChartData, setPieChartData] = useState({});
 	const [totalsData, setTotalsData] = useState();
@@ -18,7 +18,7 @@ function LiabilitiesChart() {
 	const [previousMax, setPreviousMax] = useState(0);
 	let yearRef = useRef(true);
 	const chartType = useOutletContext();
-	const data = LiabilitiesData;
+	const data = CashFlow;
 
 	let seriesCurrent = [];
 	let currentTotals = [];
@@ -27,8 +27,13 @@ function LiabilitiesChart() {
 	let percentChange = PercentChange(data);
 	let categories = [];
 
+	// put data into correctly formatted arrays
 	for (let item of data) {
-		if (item.name.includes("Total") || item.name.includes("Protected")) {
+		if (
+			item.name.includes("Total") ||
+			item.name.includes("Net") ||
+			item.name.includes("of Year")
+		) {
 			currentTotals.push({
 				name: item.row,
 				y: item.current,
@@ -55,12 +60,14 @@ function LiabilitiesChart() {
 			}
 		}
 	}
+	console.log("Current Max " + currentMax);
+	console.log("Prev Max " + previousMax);
 	function prepBarChart() {
 		// setting up format for both bar and column charts
 		// layout similiar so only one statement needed for both
 		setBarChartData({
 			title: {
-				text: "Liabilities, Surplus, and Other Funds",
+				text: "Cash Flow",
 				style: { fontSize: "40px", color: "#9FECB9", fontWeight: "bold" },
 			},
 			subtitle: {
@@ -240,9 +247,9 @@ function LiabilitiesChart() {
 				<SplitPie
 					className="percent-chart"
 					values={percentChange}
-					minPoint={70}
+					minPoint={10}
 					maxPoint={800}
-					zMax={700}
+					zMax={1000}
 				/>
 				<p className="percent-desc">
 					Form values from each year are compared with a function within the
@@ -254,4 +261,4 @@ function LiabilitiesChart() {
 	);
 }
 
-export default LiabilitiesChart;
+export default CashFlowChart;

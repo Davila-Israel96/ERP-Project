@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import AccountsChart from "./pages/AccountsChart";
 import AssetsChart from "./pages/AssetsChart";
 import LiabilitiesChart from "./pages/LiabilitiesChart";
+import CashFlowChart from "./pages/CashFlowChart";
 // when using certain modules, they must be imported and initialized separately
 /**
  * @description: Main page for application, App will act as the foundation
@@ -17,6 +18,7 @@ function App() {
 					<Route path="/accounts" element={<AccountsChart />} />
 					<Route path="/assets" element={<AssetsChart />} />
 					<Route path="/liabilities" element={<LiabilitiesChart />} />
+					<Route path="/cash-flow" element={<CashFlowChart />} />
 				</Route>
 			</Routes>
 		</div>
