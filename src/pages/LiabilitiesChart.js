@@ -92,6 +92,7 @@ function LiabilitiesChart() {
 				},
 			},
 			legend: {
+				styledMode: true,
 				layout: "vertical",
 				align: "right",
 				verticalAlign: "top",

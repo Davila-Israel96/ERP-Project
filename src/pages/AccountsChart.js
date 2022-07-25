@@ -127,6 +127,7 @@ function AccountsChart() {
 				},
 			},
 			legend: {
+				styledMode: true,
 				layout: "vertical",
 				align: "right",
 				verticalAlign: "top",
