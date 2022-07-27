@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { React, useState, useEffect, useRef } from "react";
-import Highcharts from "highcharts";
-import Polygon from "highcharts/highcharts-more";
-import { useOutletContext } from "react-router-dom";
-import { Assets } from "../data/Assets";
-import { BarColumnChart } from "../components/BarColumnChart";
-import { PieChart } from "../components/PieChart";
-import { PercentChange } from "../components/PercentChange";
-import SplitPie from "../components/SplitPie";
+import { React, useState, useEffect, useRef } from 'react';
+import Highcharts from 'highcharts';
+import Polygon from 'highcharts/highcharts-more';
+import { useOutletContext } from 'react-router-dom';
+import { Assets } from '../data/Assets';
+import { BarColumnChart } from '../components/BarColumnChart';
+import { PieChart } from '../components/PieChart';
+import { PercentChange } from '../components/PercentChange';
+import SplitPie from '../components/SplitPie';
 
 Polygon(Highcharts);
 function AssetsChart() {
@@ -29,7 +29,7 @@ function AssetsChart() {
 	let categories = [];
 
 	for (let item of data) {
-		if (item.name.includes("Total") || item.name.includes("Net Income")) {
+		if (item.name.includes('Total') || item.name.includes('Net Income')) {
 			currentTotals.push({
 				name: item.row,
 				y: item.current,
@@ -56,28 +56,28 @@ function AssetsChart() {
 			}
 		}
 	}
-	console.log("Current Max " + currentMax);
-	console.log("Prev Max " + previousMax);
+	console.log('Current Max ' + currentMax);
+	console.log('Prev Max ' + previousMax);
 	function prepBarChart() {
 		// setting up format for both bar and column charts
 		// layout similiar so only one statement needed for both
 		setBarChartData({
 			title: {
-				text: "Assets",
-				style: { fontSize: "40px", color: "#9FECB9", fontWeight: "bold" },
+				text: 'Assets',
+				style: { fontSize: '40px', color: '#9FECB9', fontWeight: 'bold' },
 			},
 			subtitle: {
-				text: "Subtitle",
+				text: '2021 - 2022',
 			},
 			chart: {
 				// nullify type at chart level for 'polygon' chart type
-				type: `${chartType === "polygon" ? null : chartType}`,
+				type: `${chartType === 'polygon' ? null : chartType}`,
 				height: 1200,
 				width: 1300,
-				backgroundColor: "#ffffff",
+				backgroundColor: '#ffffff',
 			},
 			xAxis: {
-				type: "category",
+				type: 'category',
 				categories: [...categories],
 				title: {
 					text: null,
@@ -90,10 +90,10 @@ function AssetsChart() {
 					currentMax > previousMax ? currentMax + 1000 : previousMax + 1000
 				}`,
 				title: {
-					text: "Value",
+					text: 'Value',
 				},
 				labels: {
-					overflow: "justify",
+					overflow: 'justify',
 				},
 			},
 			credits: { enabled: false },
@@ -102,53 +102,53 @@ function AssetsChart() {
 					dataLabels: {
 						enabled: true,
 						// eslint-disable-next-line no-template-curly-in-string
-						format: "${y}",
+						format: '${y}',
 					},
 				},
 			},
 			legend: {
 				styledMode: true,
-				layout: "vertical",
-				align: "right",
-				verticalAlign: "top",
+				layout: 'vertical',
+				align: 'right',
+				verticalAlign: 'top',
 				x: -40,
 				y: 45,
 				borderWidth: 1,
 				floating: true,
 				backgroundColor:
-					Highcharts.defaultOptions.legend.backgroundColor || "#FFFFFFF",
+					Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFFF',
 				itemStyle: {
-					color: "#ffffff",
+					color: '#ffffff',
 				},
 			},
 			// series is an array of objects set above useEffect
 			series: [
 				{
-					name: "Current",
+					name: 'Current',
 					data: [...seriesCurrent],
-					type: `${chartType === "polygon" ? chartType : ""}`,
+					type: `${chartType === 'polygon' ? chartType : ''}`,
 					zones: [
 						{
 							value: 0,
-							color: "#FF2800",
+							color: '#FF2800',
 						},
 						{
-							color: "#9FECB9",
+							color: '#9FECB9',
 						},
 					],
-					color: `${chartType === "polygon" ? "#9FECB9" : ""}`,
+					color: `${chartType === 'polygon' ? '#9FECB9' : ''}`,
 				},
 				{
-					name: "Previous",
-					type: `${chartType === "polygon" ? "scatter" : ""}`,
+					name: 'Previous',
+					type: `${chartType === 'polygon' ? 'scatter' : ''}`,
 					data: [...seriesPrevious],
 					zones: [
 						{
 							value: 0,
-							color: "#FF2800",
+							color: '#FF2800',
 						},
 						{
-							color: "rgba(28, 190, 131, 1)",
+							color: 'rgba(28, 190, 131, 1)',
 						},
 					],
 				},
@@ -163,24 +163,24 @@ function AssetsChart() {
 		}
 		setPieChartData({
 			title: {
-				text: `${yearRef.current === true ? "Current Year" : "Previous Year"}`,
-				style: { fontSize: "30px", color: "#9FECB9", fontWeight: "bold" },
+				text: `${yearRef.current === true ? 'Current Year' : 'Previous Year'}`,
+				style: { fontSize: '30px', color: '#9FECB9', fontWeight: 'bold' },
 			},
 			chart: {
-				type: "pie",
+				type: 'pie',
 				height: 600,
 				width: 850,
 			},
 			tooltip: {
-				pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>",
+				pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
 			},
 			plotOptions: {
 				pie: {
 					allowPointSelect: true,
-					cursor: "pointer",
+					cursor: 'pointer',
 					dataLabels: {
 						enabled: true,
-						format: "<b>{point.name}</b>: {point.percentage:.1f}%",
+						format: '<b>{point.name}</b>: {point.percentage:.1f}%',
 					},
 					showInLegend: true,
 				},
@@ -209,7 +209,7 @@ function AssetsChart() {
 	}
 
 	const changeTotals = () => {
-		console.log("changeTotals " + yearRef.current);
+		console.log('changeTotals ' + yearRef.current);
 		if (yearRef.current === true) {
 			setTotalsData(currentTotals);
 		}
@@ -219,35 +219,35 @@ function AssetsChart() {
 	};
 
 	return (
-		<div className="chart-container">
-			<div className="bar-container">
+		<div className='chart-container'>
+			<div className='bar-container'>
 				<BarColumnChart chartOptions={barChartData} />
 			</div>
-			<div className="total-title">Yearly Totals</div>
-			<div className="pie-container">
-				<PieChart className="pie-chart" chartOptions={pieChartData} />
-				<div className="pie-btns">
+			<div className='total-title'>Yearly Totals</div>
+			<div className='pie-container'>
+				<PieChart className='pie-chart' chartOptions={pieChartData} />
+				<div className='pie-btns'>
 					<button
-						className="year-btn"
-						type="button"
+						className='year-btn'
+						type='button'
 						onClick={(e) => handleChartChange(e)}>
 						Change Year
 					</button>
-					<p className="description">
+					<p className='description'>
 						When the form is input, the application separates the lines
 						regarding totals and places them into the pie chart pictured here.
 					</p>
 				</div>
 			</div>
-			<div className="percent-container">
+			<div className='percent-container'>
 				<SplitPie
-					className="percent-chart"
+					className='percent-chart'
 					values={percentChange}
 					minPoint={10}
 					maxPoint={800}
 					zMax={1000}
 				/>
-				<p className="percent-desc">
+				<p className='percent-desc'>
 					Form values from each year are compared with a function within the
 					application, a percentage change is calculated, then input to the
 					chart.

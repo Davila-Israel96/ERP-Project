@@ -62,6 +62,7 @@
 -> if you have an IDE such as Visual Studio Code, open the folder up from there. IF NOT
 -> launch the command prompt / terminal
 -> CD into the 'ERP-Project' folder
+-> ensure that you have NPM installed before the next step
 -> type 'npm install'
 -> after dependencies are installed, type 'npm start'
 -> this should launch the application in a separate Chrome or Edge window
